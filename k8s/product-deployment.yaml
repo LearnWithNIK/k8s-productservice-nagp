@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: productservice-deployment
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: productservice
@@ -11,7 +11,7 @@ spec:
     metadata:
       labels:
         app: productservice
-    spec:
+    spec:                                       
       containers:
         - name: productservice
           image: nikitrai1993/productservice:latest
@@ -38,7 +38,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db-secret
-                  key: db_password
+                  key: db_password                             
           resources:
             requests:
               cpu: "250m"
