@@ -56,6 +56,19 @@ docker push nikitrai1993/productservice:latest
 
 ---
 
+## 🐳 Dockerfile Summary
+
+This project uses a multi-stage `Dockerfile` located in the root of the `ProductService/` directory.
+
+- **Stage 1**: Uses `mcr.microsoft.com/dotnet/sdk:8.0` to build and publish the .NET 8 application.
+- **Stage 2**: Uses `mcr.microsoft.com/dotnet/aspnet:8.0` as the runtime environment.
+- **Final Image**: Exposes port 80 and runs the `ProductService.dll` on startup.
+
+See the full `Dockerfile` in the repository for details.
+```
+
+---
+
 ## 🚀 One-Click Kubernetes Deployment
 
 From the `ProductService/k8s/` directory:
