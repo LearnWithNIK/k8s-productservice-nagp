@@ -18,12 +18,6 @@ namespace ProductService.Controller
             _logger = logger;
         }
 
-        [HttpGet("version")]
-        public IActionResult GetVersion()
-        {
-            return Ok("ProductService version 1.0 - deployed successfully!");
-        }
-
         // GET: api/products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
