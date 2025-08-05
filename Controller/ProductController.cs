@@ -61,9 +61,9 @@ namespace ProductService.Controller
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, dto);
         }
 
-        // PUT: api/products/bulk
-        [HttpPut("bulk")]
-        public async Task<IActionResult> BulkUpdateProducts(List<Product> products)
+        // POST: api/products/bulk
+        [HttpPost("bulk")]
+        public async Task<IActionResult> BulkInsertProducts(List<Product> products)
         {
             if (products == null || products.Count == 0)
                 return BadRequest("Product list cannot be empty.");
@@ -71,31 +71,26 @@ namespace ProductService.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Get all product IDs from request
-            var ids = products.Select(p => p.Id).ToList();
-
-            // Fetch existing products from DB
-            var existingProducts = await _context.Products
-                .Where(p => ids.Contains(p.Id))
+            // Optional: Check if any IDs already exist to avoid duplicates
+            var existingIds = products.Select(p => p.Id).ToList();
+            var duplicates = await _context.Products
+                .Where(p => existingIds.Contains(p.Id))
                 .ToListAsync();
 
-            if (existingProducts.Count != ids.Count)
-                return NotFound("One or more products were not found.");
+            if (duplicates.Any())
+                return Conflict("One or more products already exist.");
 
-            // Update existing records
-            foreach (var existing in existingProducts)
+            // Set CreatedAt timestamp
+            foreach (var product in products)
             {
-                var dto = products.First(p => p.Id == existing.Id);
-
-                existing.Name = dto.Name;
-                existing.Description = dto.Description;
-                existing.Price = dto.Price;
-                existing.Category = dto.Category;
-                existing.CreatedAt = DateTime.UtcNow;
+                product.CreatedAt = DateTime.UtcNow;
             }
 
+            // Add all products in one go
+            await _context.Products.AddRangeAsync(products);
             await _context.SaveChangesAsync();
-            return NoContent();
+
+            return CreatedAtAction(nameof(GetProducts), null);
         }
 
         // PUT: api/products/5
