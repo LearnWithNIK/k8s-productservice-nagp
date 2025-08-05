@@ -61,8 +61,8 @@ namespace ProductService.Controller
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, dto);
         }
 
-        // POST: api/products/bulk
-        [HttpPost("bulk")]
+        // POST: api/products/bulkInsert
+        [HttpPost("bulkInsert")]
         public async Task<IActionResult> BulkInsertProducts(List<Product> products)
         {
             if (products == null || products.Count == 0)
