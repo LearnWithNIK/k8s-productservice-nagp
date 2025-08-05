@@ -61,6 +61,43 @@ namespace ProductService.Controller
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, dto);
         }
 
+        // PUT: api/products/bulk
+        [HttpPut("bulk")]
+        public async Task<IActionResult> BulkUpdateProducts(List<Product> products)
+        {
+            if (products == null || products.Count == 0)
+                return BadRequest("Product list cannot be empty.");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // Get all product IDs from request
+            var ids = products.Select(p => p.Id).ToList();
+
+            // Fetch existing products from DB
+            var existingProducts = await _context.Products
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync();
+
+            if (existingProducts.Count != ids.Count)
+                return NotFound("One or more products were not found.");
+
+            // Update existing records
+            foreach (var existing in existingProducts)
+            {
+                var dto = products.First(p => p.Id == existing.Id);
+
+                existing.Name = dto.Name;
+                existing.Description = dto.Description;
+                existing.Price = dto.Price;
+                existing.Category = dto.Category;
+                existing.CreatedAt = DateTime.UtcNow;
+            }
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
         // PUT: api/products/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, Product dto)
