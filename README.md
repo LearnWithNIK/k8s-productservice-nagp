@@ -65,7 +65,6 @@ This project uses a multi-stage `Dockerfile` located in the root of the `Product
 - **Final Image**: Exposes port 80 and runs the `ProductService.dll` on startup.
 
 See the full `Dockerfile` in the repository for details.
-```
 
 ---
 
