@@ -26,25 +26,14 @@ This repository contains the source code and Kubernetes deployment configuration
 - **GitHub Repository**: [https://github.com/LearnWithNIK/k8s-productservice-nagp.git](https://github.com/LearnWithNIK/k8s-productservice-nagp.git)
 - **Docker Hub Image**: [`nikitrai1993/productservice:latest`](https://hub.docker.com/r/nikitrai1993/productservice)
 - **Service URL**: [http://product.local/api/products](http://product.local/api/products)
-- **Swagger UI**: [http://product.local/swagger/index.html)
+- **Swagger UI**: [http://product.local/swagger/index.html](http://product.local/swagger/index.html)
+- **Recording - Assignment Walkthrough**: [https://drive.google.com/file/d/18FDEVgaj_y2ouVH4vD9fplBRbmw9lfPL/view?usp=drive_link](https://drive.google.com/file/d/18FDEVgaj_y2ouVH4vD9fplBRbmw9lfPL/view?usp=drive_link)
 
 > ℹ️ Ensure you map the domain manually:
 > ```
 > 35.184.34.101   product.local
 > ```
 > Add this entry to your `/etc/hosts` or local DNS settings.
-
----
-
-## 🎬 Screen Recording Checklist
-
-🎥 *[Add your screen recording link here]*
-
-Your video should demonstrate:
-- ✅ All Kubernetes objects deployed and running
-- ✅ API call (`GET /api/products`) fetching data from PostgreSQL
-- ✅ Deleting an API pod → auto-recovery via Deployment
-- ✅ Deleting the DB pod → auto-recovery with data intact via PVC
 
 ---
 
