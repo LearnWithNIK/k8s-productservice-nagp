@@ -26,6 +26,7 @@ This repository contains the source code and Kubernetes deployment configuration
 - **GitHub Repository**: [https://github.com/LearnWithNIK/k8s-productservice-nagp.git](https://github.com/LearnWithNIK/k8s-productservice-nagp.git)
 - **Docker Hub Image**: [`nikitrai1993/productservice:latest`](https://hub.docker.com/r/nikitrai1993/productservice)
 - **Service URL**: [http://product.local/api/products](http://product.local/api/products)
+- **Swagger UI**: [http://product.local/swagger/index.html)
 
 > ℹ️ Ensure you map the domain manually:
 > ```
